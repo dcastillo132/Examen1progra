@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+int main() {
+    char comprador[30], categoria[15], seguir;
+    int cantidad;
+    double total, precio;
+
+    int totalGen = 0, totalPref = 0, totalVIP = 0;
+    double montoGen = 0, montoPref = 0, montoVIP = 0;
+
+    do {
+        printf("Nombre del comprador: ");
+        scanf("%s", comprador);
+
+        printf("Categoria (General, Preferencial, VIP): ");
+        scanf("%s", categoria);
+
+        if (categoria[0] == 'G' || categoria[0] == 'g') {
+            precio = 50.0;
+        } else if (categoria[0] == 'P' || categoria[0] == 'p') {
+            precio = 80.0;
+        } else if (categoria[0] == 'V' || categoria[0] == 'v') {
+            precio = 120.0;
+        } else {
+            printf("Categoría inválida.\n");
+            continue;
+        }
+
+        printf("Cantidad (max 5): ");
+        scanf("%d", &cantidad);
+        if (cantidad < 1 || cantidad > 5) {
+            printf("Cantidad inválida.\n");
+            continue;
+        }
+
+        total = (cantidad * precio) + 5.0;
+
+        printf("\n--- Resumen ---\n");
+        printf("Comprador: %s\n", comprador);
+        printf("Categoria: %s\n", categoria);
+        printf("Cantidad: %d\n", cantidad);
+        printf("Total: $%.2f\n", total);
+
+        if (precio == 50.0) {
+            totalGen += cantidad;
+            montoGen += total;
+        } else if (precio == 80.0) {
+            totalPref += cantidad;
+            montoPref += total;
+        } else if (precio == 120.0) {
+            totalVIP += cantidad;
+            montoVIP += total;
+        }
+
+        printf("¿Otra venta? (S/N): ");
+        scanf(" %c", &seguir);
+
+    } while (seguir == 'S' || seguir == 's');
+
+    printf("\n--- Estadisticas Finales ---\n");
+    printf("General: %d entradas - $%.2f\n", totalGen, montoGen);
+    printf("Preferencial: %d entradas - $%.2f\n", totalPref, montoPref);
+    printf("VIP: %d entradas - $%.2f\n", totalVIP, montoVIP);
+
+    return 0;
+}
+
